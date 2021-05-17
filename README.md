@@ -2,13 +2,16 @@
 
 ## users テーブル
 
-| Column               | Type   | Options      |
-| -------------------- | ------ | ------------ |
-| nickname             | string | null: false  |
-| email                | string | unique: true |
-| encrypted_password   | string | null: false  |
-| name                 |
-| birth                |
+| Column               | Type    | Options      |
+| -------------------- | ------- | ------------ |
+| nickname             | string  | null: false  |
+| email                | string  | unique: true |
+| encrypted_password   | string  | null: false  |
+| last_name            | string  | null: false  |
+| first_name           | string  | null: false  |
+| ruby_last            | string  | null: false  |
+| ruby_first           | string  | null: false  |
+| birth                | date    | null: false  |
 
 ### Association
 
@@ -48,14 +51,15 @@
 
 ## shippings テーブル
 
-| Column                 | Type       | Options     |
-| ---------------------- | ---------  | ----------- |
-| postal_code            | text       | null: false |
-| prefecture_id          | integer    | null: false |
-| street                 | text       | null: false |
-| block                  | text       | null: false |
-| building               | text       |             |
-| phone                  | text       | null: false |
+| Column                 | Type         | Options                        |
+| ---------------------- | ------------ | ------------------------------ |
+| postal_code            | string       | null: false                    |
+| prefecture_id          | integer      | null: false                    |
+| street                 | string       | null: false                    |
+| block                  | string       | null: false                    |
+| building               | string       |                                |
+| phone                  | string       | null: false                    |
+| buy                    | references   | null: false, foreign_key: true |
 
 ### Association
 
