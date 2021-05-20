@@ -6,4 +6,5 @@ class ItemsController < ApplicationController
 
   def new
   end
+  #画像の保存を許可するストロングパラメーターにしましょう
 end
