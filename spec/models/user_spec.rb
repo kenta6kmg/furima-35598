@@ -74,13 +74,34 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name is invalid. Input full-width characters.")
     end
+    it 'last_nameは、空だと登録できないこと' do
+      @user.last_name = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name can't be blank")
+    end
     it 'first_nameは、全角（漢字・ひらがな・カタカナ）でないと登録できない' do
       @user.first_name = 'a'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters.")
     end
+    it 'first_nameは、空だと登録できないこと' do
+      @user.first_name = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name can't be blank")
+    end
     it 'ruby_lastは、全角（カタカナ）でないと登録できない' do
       @user.ruby_last = 'a'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Ruby last is invalid. Input full-width katakana characters.")
+    end
+    it 'ruby_lastは、空だと登録できないこと' do
+      @user.ruby_last = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Ruby last can't be blank")
+    end
+  
+    it 'ruby_lastは、カタカナ以外の全角文字だと登録できないこと' do
+      @user.ruby_last = 'あ'
       @user.valid?
       expect(@user.errors.full_messages).to include("Ruby last is invalid. Input full-width katakana characters.")
     end
@@ -89,7 +110,17 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Ruby first is invalid. Input full-width katakana characters.")
     end
-    it '生年月日が空だと登録できない' do
+    it 'ruby_firstは、空だと登録できないこと' do
+      @user.ruby_first = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Ruby first can't be blank")
+    end
+    it 'ruby_firstは、カタカナ以外の全角文字だと登録できないこと' do
+      @user.ruby_first = 'あ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Ruby first is invalid. Input full-width katakana characters.")
+    end
+    it 'birthが空だと登録できない' do
       @user.birth = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Birth can't be blank")
