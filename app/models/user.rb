@@ -7,16 +7,21 @@ class User < ApplicationRecord
   #has_many :items
   #has_many :buys
 
-validates :nickname,           presence: true
+
 
 with_options presence: true do
-  validates :last_name,          format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid. Input full-width characters."}
-  validates :first_name,         format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid. Input full-width characters."}
-  validates :ruby_last,          format: {with: /\A[ァ-ヶー]+\z/, message: "is invalid. Input full-width katakana characters."}
-  validates :ruby_first,         format: {with: /\A[ァ-ヶー]+\z/, message: "is invalid. Input full-width katakana characters."}
-  validates :password,           format: {with: /\A[a-z0-9]+\z/i, message: "is invalid. Input half-width characters."}
-end
-  validates :birth,              presence: true
+  validates :nickname
+  with_options format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid. Input full-width characters."} do
+    validates :last_name
+    validates :first_name
+  end
+  with_options format: {with: /\A[ァ-ヶー]+\z/, message: "is invalid. Input full-width katakana characters."} do
+    validates :ruby_last
+    validates :ruby_first
+  end
+  validates :password,format: {with: /\A[a-z0-9]+\z/i, message: "is invalid. Input half-width characters."}
+  validates :birth
+  end
 end
 
 
