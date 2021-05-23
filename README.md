@@ -27,9 +27,9 @@
 | item_category_id    | integer     | null: false                    |
 | item_condition_id   | integer     | null: false                    |
 | shipping_charge_id  | integer     | null: false                    |
-| shipping_area_id    | integer     | null: false                    |
+| shipping_charge_id    | integer     | null: false                    |
 | day_id              | integer     | null: false                    |
-| price_id            | integer     | null: false                    |
+| price               | integer     | null: false                    |
 | user                | references  | null: false, foreign_key: true |
 ### Association
 
