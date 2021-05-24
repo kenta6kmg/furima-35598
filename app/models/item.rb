@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :item_category
   belongs_to :item_condition
   belongs_to :shipping_charge
-  belongs_to :shipping_charge
+  belongs_to :shipping_area
   belongs_to :day
    
 
