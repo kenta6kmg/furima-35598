@@ -80,7 +80,6 @@ end
       it '英数字混合では保存できない' do
         @item.price = 'a1'
         @item.valid?
-        binding.pry
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
     end
