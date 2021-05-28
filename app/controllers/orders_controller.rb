@@ -1,16 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :redirect_order, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @order = Order.new
     @order_address = OrderAddress.new
     @item = Item.find(params[:item_id])
-    if user_signed_in? && current_user.id == @item.user_id
-      redirect_to root_path
-    elsif user_signed_in? 
-      redirect_to new_user_session_path
-    else user_signed_in? && @item.order != nil
-      redirect_to root_path
+    if current_user.id == @item.user_id || @item.order != nil
+       redirect_to root_path
     end
   end
 
