@@ -1,17 +1,15 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_order
+  before_action :redirect_order
+
 
   def index
-    @order = Order.new
     @order_address = OrderAddress.new
-    @item = Item.find(params[:item_id])
-    if current_user.id == @item.user_id || @item.order != nil
-       redirect_to root_path
-    end
+    
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
@@ -22,11 +20,21 @@ class OrdersController < ApplicationController
     end
   end
 
+
   private
 
   def order_params
     params.require(:order_address).permit(:postal_code, :city, :house_number, :building_name, :phone_number, :shipping_area_id ).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
   end
+
+  def set_order
+    @item = Item.find(params[:item_id])
+   end
+
+  def redirect_order
+    if current_user.id == @item.user_id || @item.order != nil
+      redirect_to root_path
+   end
 
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
